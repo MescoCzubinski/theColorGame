@@ -1,30 +1,56 @@
 function main(){
-    const color = radnomColor();
-    document.body.style.backgroundColor = "#" + color;
+    let [color, opositeColor] = radnomColor();
 
-    color = parseFloat(color) - 100000;
-    document.getElementById("hash").style.color = "#" + color;
+    document.body.style.backgroundColor = color;
+    document.getElementById("hash").style.color = color;
+    document.getElementById("testColor").style.backgroundColor = opositeColor;
+    document.getElementById("upperText").style.color = opositeColor;
+    document.getElementById("bottomText").style.color = opositeColor;
+    document.getElementById("leftText").style.color = opositeColor;
+
+    for(i=1; i<4; i++){
+        document.getElementById("insertColor"+i).style.backgroundColor = color;
+    }
 }
-window.addEventListener('click', main)
-window.addEventListener('load', main)
+window.addEventListener('load', main);
 
 function radnomColor(){
-    let color = ""
+    let color = "#";
+    let opositeColor = "#";
+
     for(i=0; i<3; i++){
-        var number = Math.random() * (235-20) + 1
-        number = (Math.round(number)).toString(16);
+        var number = Math.round(Math.random() * 255);
+        var opositeNumber = (255 - Number(number));
+
+        number = number.toString(16).padStart(2, '0');
+        opositeNumber = opositeNumber.toString(16).padStart(2, '0');
+
         color += number;
+        opositeColor += opositeNumber;
     }
-    return color;
+    return [color, opositeColor];
 }
 
-window.addEventListener('click', inputing)
+window.addEventListener('click', inputing);
 function inputing(){
-    const insertColor1Element = document.getElementById("insertColor1");
-    const insertColor2Element = document.getElementById("insertColor2");
-    const insertColor3Element = document.getElementById("insertColor3");
+    const insertColorElements = [
+        document.getElementById("insertColor1"),
+        document.getElementById("insertColor2"),
+        document.getElementById("insertColor3")
+    ];
 
-    for(i=0; i<3; i++){
+    var color = "#";
+    for(let i = 0; i < 3; i++){
+        let input = insertColorElements[i].value.replace(/[^0-9a-f]/gi, "");
+        color += input;
+    }
+    document.getElementById("testColor").style.backgroundColor = color;
+    document.getElementById("testColor").style.color = color;
+    document.getElementById("upperText").style.color = color;
+    document.getElementById("bottomText").style.color = color;
+    document.getElementById("leftText").style.color = color;
 
+    for(i=1; i<4; i++){
+        document.getElementById("insertColor"+i).style.color = color;
     }
 }
