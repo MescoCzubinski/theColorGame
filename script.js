@@ -12,7 +12,6 @@ function main(){
     for(i=1; i<4; i++){
         document.getElementById("insertColor"+i).style.backgroundColor = color;
         document.getElementById("insertColor"+i).style.borderColor = opositeColor;
-
     }
 }
 window.addEventListener('load', main);
@@ -34,7 +33,7 @@ function radnomColor(){
     return [color, opositeColor];
 }
 
-window.addEventListener('click', inputing);
+window.addEventListener('input', inputing);
 function inputing(){
     const insertColorElements = [
         document.getElementById("insertColor1"),
@@ -43,19 +42,21 @@ function inputing(){
     ];
 
     var color = "#";
-    for(let i = 0; i < 3; i++){
+    for(i = 0; i < 3; i++){
         let input = insertColorElements[i].value.replace(/[^0-9a-f]/gi, "");
         color += input;
-        if(input.length === 2){
-            insertColorElements[i+1].value.blur();
-        }
     }
 
-    if(color.length === 7){
-        document.getElementById("testColor").style.backgroundColor = color;
-        document.getElementById("hash").style.color = document.getElementById("testColor").style.borderColor;
+    for(i=2; i<4; i++){
+        if(insertColorElements[i-2].value.length === 2){
+            document.getElementById("insertColor"+i).focus();
+
+            if(i == 3 && insertColorElements[i-1].value.length === 2){
+                document.getElementById("testColor").style.backgroundColor = color;
+                document.getElementById("hash").style.color = document.getElementById("testColor").style.borderColor;
+            }
+        }
     }
-    
 }
 
 window.addEventListener('click', event => {
