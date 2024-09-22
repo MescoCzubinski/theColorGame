@@ -22,7 +22,36 @@
                 font-family: "Lato", sans-serif;
                 font-size: bold;
             }
-            #container{
+            #introContainer{
+                margin-top: 200px;
+
+                width: 530px;
+                height: 300px;
+
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #introText{
+                height: 300px;
+
+                text-align: left;
+                font-size: 68px;
+            }
+            #playButton{
+                margin-top: 50px;
+                margin-left: 165px;
+            }
+            #play{
+                width: 200px;
+                height: 80px;
+
+                border-radius: 5px;
+                border-bottom-right-radius: 30px;
+
+                font-size: 40px;
+                border: solid 3px;
+            }
+            #gameContainer{
                 display: flex;
                 flex-wrap: wrap;
                 position: relative;
@@ -80,9 +109,9 @@
             }
             #hash{
                 width: 45px;
-                margin-top: 60px;
+                
+                margin-top: 53px;
                 margin-left: 50px;
-                margin-bottom: 66px;
                 font-size: 84px;
             }
             input{
@@ -115,6 +144,9 @@
                 width: 460px;
                 font-size: 12px;
             }
+            #gameContainer.none, #introContainer.none{
+                display: none;
+            }
             input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -126,8 +158,14 @@
         <main>
             <audio id="audio" src="track.mp3"></audio>
             <article>
-                </script> 
-                <div id="container">
+                <div id="introContainer">
+                    <div id="introText">
+                    </div>
+                    <div id="playButton">
+                        <button id="play">PLAY</button>
+                    </div>
+                </div>
+                <div id="gameContainer">
                     <div id="leftText">
                         <p>What color</p>
                     </div>
