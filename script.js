@@ -21,6 +21,9 @@ function newColors(){
     document.querySelector("#play").style.borderColor = opositeColor;
     document.querySelector("#play").style.backgroundColor = color;
     document.querySelector("#play").style.color = opositeColor;
+    document.querySelector("#study").style.borderColor = opositeColor;
+    document.querySelector("#study").style.backgroundColor = color;
+    document.querySelector("#study").style.color = opositeColor;
 
     for(i=1; i<4; i++){
         document.querySelector("#insertColor"+i).style.backgroundColor = color;
