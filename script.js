@@ -24,25 +24,27 @@ window.addEventListener('input', event => {
     
 });
 
+function checking(){
+    
+}
+
 function newColors(){
     let [color, opositeColor] = colors();
 
     document.body.style.backgroundColor = color;
     document.querySelector("#hash").style.color = color;
+
     document.querySelector("#introText").style.color = opositeColor;
+    document.querySelector("#leftText").style.color = opositeColor;
+    document.querySelector("#upperText").style.color = opositeColor;
+    document.querySelector("#bottomText").style.color = opositeColor;
 
     document.querySelector("#testColor").style.backgroundColor = opositeColor;
     document.querySelector("#testColor").style.borderColor = opositeColor;
-    document.querySelector("#upperText").style.color = opositeColor;
-    document.querySelector("#bottomText").style.color = opositeColor;
-    
-    document.querySelector("#leftText").style.color = opositeColor;
 
     document.querySelector("#play").style.borderColor = opositeColor;
-    document.querySelector("#play").style.backgroundColor = color;
     document.querySelector("#play").style.color = opositeColor;
     document.querySelector("#study").style.borderColor = opositeColor;
-    document.querySelector("#study").style.backgroundColor = color;
     document.querySelector("#study").style.color = opositeColor;
 
     for(i=1; i<4; i++){
@@ -52,8 +54,8 @@ function newColors(){
     }
 
     if(playClickable == true){
-        document.querySelector("#play").style.backgroundColor = opositeColor;
         document.querySelector("#play").style.color = color;
+        document.querySelector("#play").style.backgroundColor = opositeColor;
     }
 }
 
@@ -89,10 +91,21 @@ function dialog(){
         }
     }
 
-    if(text[index-1] == "Click it. Now."){
-        document.querySelector('#introContainer').classList.add("none");
+    if(index == text.length){
         document.querySelector('#gameContainer').classList.remove("none");
         document.querySelector("#insertColor1").focus();
+
+        document.querySelector('#introText').classList.add("none");
+        document.querySelector('#study').classList.remove("none");
+        document.querySelector("#play").style.borderBottomRightRadius = '5px';
+        document.querySelector("#play").innerHTML = "restart";
+    }
+
+    if(index == text.length+1){
+        document.querySelector("#insertColor1").value = "";
+        document.querySelector("#insertColor2").value = "";
+        document.querySelector("#insertColor3").value = "";
+        newColors();
     }
     newColors();
     index ++;
@@ -120,23 +133,31 @@ function study(){
       newColors();
       studyIndex++;
 
-      if(studyIndex >   hexColor.length){
+      if(studyIndex > hexColor.length){
         document.querySelector('#play').classList.remove("none");
-        document.querySelector('#introContainer').style.width = "530px";
+        document.querySelector('#introContainer').style.width = "535px";
         document.querySelector('#introText').style.height = "350px";
 
         document.querySelector("#introText").innerHTML = "The Color Game";
         document.querySelector("#study").innerHTML = "study";
         studyIndex = 0;
       }
+
+      if(studyIndex == hexColor.length){
+        document.querySelector("#study").innerHTML = "play";
+      }
 }
 
 function colors() {
     let color = randomColor();
-    let oppositeColor = "#" + oppositeColorFunc(color);
-    color = "#" + color;
+    let oppositeColor = oppositeColorFunc(color);
 
-    return [color, oppositeColor];
+    while (!isHighContrast(color, oppositeColor)) {
+        color = randomColor();
+        oppositeColor = oppositeColorFunc(color);
+    }
+
+    return ["#" + color,"#" +  oppositeColor];
 }
 function randomColor() {
     let color = "";
@@ -159,6 +180,24 @@ function oppositeColorFunc(color) {
     }
     return oppositeColor;
 }
+
+//chatGPT-4o functions
+function isHighContrast(color1, color2) {
+    const luminance1 = getLuminance(color1);
+    const luminance2 = getLuminance(color2);
+    const contrastRatio = (Math.max(luminance1, luminance2) + 0.05) / (Math.min(luminance1, luminance2) + 0.05);
+
+    return contrastRatio >= 4.5;
+}
+function getLuminance(hexColor) {
+    const rgb = hexColor.match(/.{1,2}/g).map(hex => parseInt(hex, 16) / 255);
+    const [r, g, b] = rgb.map(channel => {
+        return channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+    });
+
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+//////////////////////.
 
 window.addEventListener('click', event => {
     const audio = document.querySelector("audio");
