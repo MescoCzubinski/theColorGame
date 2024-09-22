@@ -61,6 +61,7 @@ function newColors(){
 
 let playClickable = false;
 let index = 0;
+let dialogRead = false;
 function dialog(){
     var text = [
         "The Color Game",
@@ -91,7 +92,7 @@ function dialog(){
         }
     }
 
-    if(index == text.length){
+    if(index >= text.length){
         document.querySelector('#gameContainer').classList.remove("none");
         document.querySelector("#insertColor1").focus();
 
@@ -99,6 +100,8 @@ function dialog(){
         document.querySelector('#study').classList.remove("none");
         document.querySelector("#play").style.borderBottomRightRadius = '5px';
         document.querySelector("#play").innerHTML = "restart";
+
+        dialogRead = true;
     }
 
     if(index == text.length+1){
@@ -113,9 +116,17 @@ function dialog(){
 
 let studyIndex = 0;
 function study(){
+    document.querySelector('#introText').classList.remove("none");
+    document.querySelector('#gameContainer').classList.add("none");
     document.querySelector('#play').classList.add("none");
     document.querySelector('#introContainer').style.width = "800px";
     document.querySelector('#introText').style.height = "500px";
+    document.querySelector("#play").innerHTML = "play";
+    index = 14;
+
+    document.querySelector("#insertColor1").value = "";
+    document.querySelector("#insertColor2").value = "";
+    document.querySelector("#insertColor3").value = "";
 
     var hexColor = [
         "So, hex colors. Yeah, they're these six-character things. Numbers and letters, starting with a #. Super exciting, right?",
