@@ -8,7 +8,7 @@ body{
     margin-top: 100px;
 
     width: 530px;
-    height: 300px;
+    height: 350px;
 
     margin-left: auto;
     margin-right: auto;
@@ -17,7 +17,7 @@ body{
     height: 300px;
 
     text-align: left;
-    font-size: 68px;
+     font-size: 68px;
 }
 #button{
     width: 350px;
@@ -33,7 +33,7 @@ body{
     border-radius: 5px;
 
     font-size: 40px;
-    border: solid 3px;
+    border: solid 4px;
 }
 #study{
     width: 160px;
@@ -44,7 +44,7 @@ body{
     border-bottom-right-radius: 30px;
 
     font-size: 40px;
-    border: solid 3px;
+    border: solid 4px;
 }
 #gameContainer{
     display: flex;
@@ -65,26 +65,25 @@ body{
     width: 300px;
     height: 70px;
 
-    font-size: 55px;
+    font-size: 100px;
 
     position: absolute;
-    top: 115px;
-    left: -115px; /* Adjust to position it properly */
+    top: 100px;
+    left: -155px; /* Adjust to position it properly */
 }
 #other {
     margin-left: 70px;
 }
 #upperText{
     width: 460px;
-    height: 85px;
+    height: 70px;
 
     margin: 0 auto;
 
     text-align: left;
-    font-size: 68px;
+    font-size: 58px;
 
     padding-left: 16px;
-    word-spacing: 39px;
 }
 p{
     margin: 0;
@@ -96,7 +95,7 @@ p{
     width: 460px;
     height: 200px;
 
-    border: solid 3px;
+    border: solid 4px;
     border-radius: 10px;
     border-bottom-right-radius: 60px;
 
@@ -119,10 +118,10 @@ input{
     text-align: center;
     font-size: 54px;
 
-    border: solid 3px;
+    border: solid 4px;
 }
 input:hover, input:focus{
-    border: solid 3px;
+    border: solid 4px;
     outline: none;
 }
 #insertColor1{
@@ -139,7 +138,7 @@ input:hover, input:focus{
     width: 460px;
     font-size: 12px;
 }
-#gameContainer.none, #introContainer.none, #study.none{
+#gameContainer.none, #introContainer.none, #study.none, #play.none{
     display: none;
 }
 input::-webkit-outer-spin-button,

@@ -4,6 +4,26 @@ window.addEventListener('load', function(){
     dialog();
 });
 
+window.addEventListener('input', event => {
+    const insertColorElements = [
+        document.querySelector("#insertColor1"),
+        document.querySelector("#insertColor2"),
+        document.querySelector("#insertColor3")
+    ];
+
+    var color = "#";
+    for(i = 0; i < 3; i++){
+        let input = insertColorElements[i].value.replace(/[^0-9a-f]/gi, "");
+        insertColorElements[i].value = input;
+        color += input;
+
+        if(input.length === 2){
+            insertColorElements[i+1].focus();            
+        }
+    }
+    
+});
+
 function newColors(){
     let [color, opositeColor] = colors();
 
@@ -42,20 +62,18 @@ let index = 0;
 function dialog(){
     var text = [
         "The Color Game",
-        "Colors! Am I right?",
+        "As I guess you like... colors.",
+        "Am I right?",
         "More colors?",
-        "Colors much.",
         "So... wanna play?",
-        "May the colors be with you.",
-        "May the colors be with you, as they're not with me.",
+        "But why doesn't this button work?",
         "Isn't you too weak to click it?",
-        "Cause only the cool guys click the button below.",
-        "Oh, you can't click this button",
-        "Already told you you're weak",
-        "Can I help you?",
-        "Here is my account number:",
-        "Now you are my customer.",
-        "Boss told me that I must be kind to customers.",
+        "Ok... ok... I'll stop now.",
+        "May the colors be with you.",
+        "",
+        "Oh, you still can't click this button?",
+        "Already told you you're too weak?",
+        "Last chance.",
         "Click it. Now."
     ];
 
@@ -66,7 +84,7 @@ function dialog(){
     if(index < text.length){
         document.getElementById("introText").innerHTML = text[index];
 
-        if(text[index] == "Click it. Now."){
+         if(text[index] == "Click it. Now."){
             playClickable = true;
         }
     }
@@ -78,6 +96,39 @@ function dialog(){
     }
     newColors();
     index ++;
+}
+
+let studyIndex = 0;
+function study(){
+    document.querySelector('#play').classList.add("none");
+    document.querySelector('#introContainer').style.width = "800px";
+    document.querySelector('#introText').style.height = "500px";
+
+    var hexColor = [
+        "So, hex colors. Yeah, they're these six-character things. Numbers and letters, starting with a #. Super exciting, right?",
+        "Basically, it's red, green, and blue squished into some code. Millions of color combos or whatever. It's useful, I guess.",
+        "The numbers go from 00 to FF. That means from no color to full color. That's all there is to it. Wild.",
+        "People like using hex in web design because, I don’t know, it just works across devices. Same color, no surprises. Yay.",
+        "It’s in design tools too, next to other color formats. Makes converting easier or whatever. If you care about that stuff.",
+        "Anyway, that’s hex colors. You use them, they work, end of story. Not exactly thrilling, but there you have it."
+      ];
+
+      if(studyIndex < hexColor.length){
+        document.querySelector("#introText").innerHTML = hexColor[studyIndex];
+        document.querySelector("#study").innerHTML = "next";
+      }
+      newColors();
+      studyIndex++;
+
+      if(studyIndex >   hexColor.length){
+        document.querySelector('#play').classList.remove("none");
+        document.querySelector('#introContainer').style.width = "530px";
+        document.querySelector('#introText').style.height = "350px";
+
+        document.querySelector("#introText").innerHTML = "The Color Game";
+        document.querySelector("#study").innerHTML = "study";
+        studyIndex = 0;
+      }
 }
 
 function colors() {
@@ -108,25 +159,6 @@ function oppositeColorFunc(color) {
     }
     return oppositeColor;
 }
-
-window.addEventListener('input', event => {
-    const insertColorElements = [
-        document.querySelector("#insertColor1"),
-        document.querySelector("#insertColor2"),
-        document.querySelector("#insertColor3")
-    ];
-
-    //var color = "#";
-    for(i = 0; i < 3; i++){
-        let input = insertColorElements[i].value.replace(/[^0-9a-f]/gi, "");
-        insertColorElements[i].value = input;
-        //color += input;
-
-        if(input.length === 2){
-            insertColorElements[i+1].focus();            
-        }
-    }
-});
 
 window.addEventListener('click', event => {
     const audio = document.querySelector("audio");
