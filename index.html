@@ -23,7 +23,7 @@
                 font-size: bold;
             }
             #introContainer{
-                margin-top: 200px;
+                margin-top: 100px;
 
                 width: 530px;
                 height: 300px;
@@ -37,13 +37,26 @@
                 text-align: left;
                 font-size: 68px;
             }
-            #playButton{
-                margin-top: 50px;
-                margin-left: 165px;
+            #button{
+                width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+
+                text-align: center;
             }
             #play{
-                width: 200px;
+                width: 160px;
                 height: 80px;
+
+                border-radius: 5px;
+
+                font-size: 40px;
+                border: solid 3px;
+            }
+            #study{
+                width: 160px;
+                height: 80px;
+                margin-left: 10px;
 
                 border-radius: 5px;
                 border-bottom-right-radius: 30px;
@@ -144,7 +157,7 @@
                 width: 460px;
                 font-size: 12px;
             }
-            #gameContainer.none, #introContainer.none{
+            #gameContainer.none, #introContainer.none, #study.none{
                 display: none;
             }
             input::-webkit-outer-spin-button,
@@ -161,8 +174,9 @@
                 <div id="introContainer">
                     <div id="introText">
                     </div>
-                    <div id="playButton">
-                        <button id="play">PLAY</button>
+                    <div id="button">
+                        <button id="play" onclick="dialog()">play</button>
+                        <button id="study">study</button>
                     </div>
                 </div>
                 <div id="gameContainer">
@@ -181,10 +195,10 @@
                                 <input id="insertColor1" type="text" maxlength="2">
                             </div>
                             <div>
-                                <input id="insertColor2" type="text" maxlength="2">
+                                <input id="insertColor2" type="text" maxlength="2" disabled>
                             </div>
                             <div>
-                                <input id="insertColor3" type="text" maxlength="2">
+                                <input id="insertColor3" type="text" maxlength="2" disabled>
                             </div>
                         </div>
                         <div id="bottomText">

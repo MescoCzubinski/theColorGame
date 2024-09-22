@@ -4,12 +4,6 @@ window.addEventListener('load', function(){
     dialog();
 });
 
-window.addEventListener('click', event => {
-    const audio = document.querySelector("audio");
-    audio.play();
-    audio.loop = true;
-});
-
 function newColors(){
     let [color, opositeColor] = colors();
 
@@ -41,10 +35,11 @@ function newColors(){
 }
 
 let playClickable = false;
+let index = 0;
 function dialog(){
-    document.querySelector("#introText").innerHTML = "Colors! Am I right?";
-
     var text = [
+        "The Color Game",
+        "Colors! Am I right?",
         "More colors?",
         "Colors much.",
         "So... wanna play?",
@@ -61,79 +56,77 @@ function dialog(){
         "Click it. Now."
     ];
 
-    for(let index = 0; index < text.length; index++) {
-        setTimeout(function(){
-            document.querySelector("#introText").innerHTML = text[index];
-            newColors();
-
-            if(text[index] == "Now you are my customer."){
-                playClickable = true;
-            }
-        }, 500 * (index + 1));
+    if(index == 1){
+        document.querySelector("#study").classList.add("none");
+        document.querySelector("#play").style.borderBottomRightRadius = '30px';
     }
-};
+    if(index < text.length){
+        document.getElementById("introText").innerHTML = text[index];
 
-const button = document.getElementById("play"); // Replace with your button's ID
+        if(text[index] == "Click it. Now."){
+            playClickable = true;
+        }
+    }
 
-button.addEventListener("click", function(){
-    if(playClickable == true){
-        document.querySelector('#gameContainer').classList.remove("none");
+    if(text[index-1] == "Click it. Now."){
         document.querySelector('#introContainer').classList.add("none");
+        document.querySelector('#gameContainer').classList.remove("none");
+        document.querySelector("#insertColor1").focus();
     }
-});
-
-function colors(){
-    let color = "#" + radnomColor();
-    let opositeColor = "#" + opositeColor(color);
-
-    return [color, opositeColor];
+    newColors();
+    index ++;
 }
-function radnomColor(){
+
+function colors() {
+    let color = randomColor();
+    let oppositeColor = "#" + oppositeColorFunc(color);
+    color = "#" + color;
+
+    return [color, oppositeColor];
+}
+function randomColor() {
     let color = "";
 
-    for(i=0; i<3; i++){
-        var number = Math.round(Math.random() * 255);
+    for (let i = 0; i < 3; i++) {
+        let number = Math.round(Math.random() * 255);
         number = number.toString(16).padStart(2, '0');
         color += number;
     }
     return color;
 }
-function oppositeColor(color) {
+function oppositeColorFunc(color) {
     let oppositeColor = "";
 
     for (let i = 0; i < 3; i++) {
-        let hexNumber = color.slice((i * 2) + 1, (i + 1) * 2 + 1);
-        let number = parseInt(hexNumber, 16);
-        number = 255 - number;
+        let hexNumber = color.slice(i * 2, (i * 2) + 2);
+        let number = 255 - parseInt(hexNumber, 16);
+
         oppositeColor += number.toString(16).padStart(2, '0');
     }
     return oppositeColor;
 }
 
-
-window.addEventListener('input', inputing);
-function inputing(){
+window.addEventListener('input', event => {
     const insertColorElements = [
         document.querySelector("#insertColor1"),
         document.querySelector("#insertColor2"),
         document.querySelector("#insertColor3")
     ];
 
-    var color = "#";
+    //var color = "#";
     for(i = 0; i < 3; i++){
         let input = insertColorElements[i].value.replace(/[^0-9a-f]/gi, "");
-        color += input;
-    }
+        insertColorElements[i].value = input;
+        //color += input;
 
-    for(i=2; i<4; i++){
-        if(insertColorElements[i-2].value.length === 2){
-            document.querySelector("#insertColor"+i).focus();
-
-            if(i == 3 && insertColorElements[i-1].value.length === 2){
-                document.querySelector("#testColor").style.backgroundColor = color;
-                document.querySelector("#hash").style.color = document.querySelector("#testColor").style.borderColor;
-            }
+        if(input.length === 2){
+            insertColorElements[i+1].focus();            
         }
     }
-}
+});
 
+window.addEventListener('click', event => {
+    const audio = document.querySelector("audio");
+    audio.play();
+    audio.loop = true;
+});
