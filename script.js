@@ -1,7 +1,6 @@
 window.addEventListener('load', function(){
     document.querySelector('#gameContainer').classList.add("none");
     newColors();
-    dialog();
 });
 
 window.addEventListener('input', event => {
@@ -21,7 +20,6 @@ window.addEventListener('input', event => {
             insertColorElements[i+1].focus();            
         }
     }
-    
 });
 
 function checking(){
@@ -44,8 +42,11 @@ function newColors(){
 
     document.querySelector("#play").style.borderColor = opositeColor;
     document.querySelector("#play").style.color = opositeColor;
+    document.querySelector("#play").style.shadowColor = opositeColor;
+
     document.querySelector("#study").style.borderColor = opositeColor;
     document.querySelector("#study").style.color = opositeColor;
+    document.querySelector("#study").style.shadowColor = opositeColor;
 
     for(i=1; i<4; i++){
         document.querySelector("#insertColor"+i).style.backgroundColor = color;
@@ -63,16 +64,18 @@ let playClickable = false;
 let index = 0;
 let dialogRead = false;
 function dialog(){
+    document.querySelector("#study").classList.add("none");
+    document.querySelector("#play").style.borderBottomRightRadius = '30px';
+
     var text = [
-        "The Color Game",
-        "As I guess you like... colors.",
+        "As I guess you like colors.",
         "Am I right?",
         "More colors?",
         "So... wanna play?",
         "But why doesn't this button work?",
         "Isn't you too weak to click it?",
         "Ok... ok... I'll stop now.",
-        "May the colors be with you.",
+        "'May the colors be with you.'",
         "",
         "Oh, you still can't click this button?",
         "Already told you you're too weak?",
@@ -80,84 +83,92 @@ function dialog(){
         "Click it. Now."
     ];
 
-    if(index == 1){
-        document.querySelector("#study").classList.add("none");
-        document.querySelector("#play").style.borderBottomRightRadius = '30px';
+    if (index < text.length) {
+        textTyping(document.querySelector("#introText"), text[index]);
     }
-    if(index < text.length){
-        document.getElementById("introText").innerHTML = text[index];
-
-         if(text[index] == "Click it. Now."){
-            playClickable = true;
-        }
+    
+    if (index === text.length - 1) {
+        playClickable = true;
     }
-
-    if(index >= text.length){
-        document.querySelector('#gameContainer').classList.remove("none");
+    
+    if (index >= text.length) {
+        const gameContainer = document.querySelector('#gameContainer');
+        const introText = document.querySelector('#introText');
+        const studySection = document.querySelector('#study');
+        const playButton = document.querySelector("#play");
+        
+        gameContainer.classList.remove("none");
         document.querySelector("#insertColor1").focus();
-
-        document.querySelector('#introText').classList.add("none");
-        document.querySelector('#study').classList.remove("none");
-        document.querySelector("#play").style.borderBottomRightRadius = '5px';
-        document.querySelector("#play").innerHTML = "restart";
-
+    
+        introText.classList.add("none");
+        studySection.classList.remove("none");
+    
+        playButton.style.borderBottomRightRadius = '5px';
+        playButton.innerHTML = "reset";
+    
         dialogRead = true;
     }
-
-    if(index == text.length+1){
-        document.querySelector("#insertColor1").value = "";
-        document.querySelector("#insertColor2").value = "";
-        document.querySelector("#insertColor3").value = "";
-        newColors();
+    
+    if (index === text.length + 1) {
+        ['#insertColor1', '#insertColor2', '#insertColor3'].forEach(id => {
+            document.querySelector(id).value = "";
+        });
+        return;
     }
+    index++;
     newColors();
-    index ++;
 }
 
 let studyIndex = 0;
-function study(){
-    document.querySelector('#introText').classList.remove("none");
-    document.querySelector('#gameContainer').classList.add("none");
-    document.querySelector('#play').classList.add("none");
-    document.querySelector('#introContainer').style.width = "800px";
-    document.querySelector('#introText').style.height = "500px";
-    document.querySelector("#play").innerHTML = "play";
+function study() {
+    const introText = document.querySelector('#introText');
+    const gameContainer = document.querySelector('#gameContainer');
+    const playButton = document.querySelector('#play');
+    const introContainer = document.querySelector('#introContainer');
+    const studyButton = document.querySelector("#study");
+    
+    introText.classList.remove("none");
+    gameContainer.classList.add("none");
+    playButton.classList.add("none");
+    
+    introContainer.style.width = "800px";
+    introText.style.height = "600px";
+    playButton.innerHTML = "play";
     index = 14;
 
-    document.querySelector("#insertColor1").value = "";
-    document.querySelector("#insertColor2").value = "";
-    document.querySelector("#insertColor3").value = "";
+    ['#insertColor1', '#insertColor2', '#insertColor3'].forEach(id => {
+        document.querySelector(id).value = "";
+    });
 
-    var hexColor = [
-        "So, hex colors. Yeah, they're these six-character things. Numbers and letters, starting with a #. Super exciting, right?",
+    studyButton.innerHTML = "next";
+
+    const hexColor = [
+        "So, hex colors. Yeah, they're these six-character things. Numbers and letters, starting with a '#'. Super exciting, right?",
         "Basically, it's red, green, and blue squished into some code. Millions of color combos or whatever. It's useful, I guess.",
-        "The numbers go from 00 to FF. That means from no color to full color. That's all there is to it. Wild.",
+        "The numbers go from '00' to 'FF'. That means from no color to full color. That's all there is to it. Wild.",
         "People like using hex in web design because, I don’t know, it just works across devices. Same color, no surprises. Yay.",
         "It’s in design tools too, next to other color formats. Makes converting easier or whatever. If you care about that stuff.",
         "Anyway, that’s hex colors. You use them, they work, end of story. Not exactly thrilling, but there you have it."
-      ];
+    ];
 
-      if(studyIndex < hexColor.length){
-        document.querySelector("#introText").innerHTML = hexColor[studyIndex];
-        document.querySelector("#study").innerHTML = "next";
-      }
-      newColors();
-      studyIndex++;
+    if (studyIndex < hexColor.length) {
+        textTyping(introText, hexColor[studyIndex]);
+    }
 
-      if(studyIndex > hexColor.length){
-        document.querySelector('#play').classList.remove("none");
-        document.querySelector('#introContainer').style.width = "535px";
-        document.querySelector('#introText').style.height = "350px";
+    if (studyIndex >= hexColor.length) {
+        playButton.classList.remove("none");
+        introContainer.style.width = "535px";
+        introText.style.height = "350px";
 
-        document.querySelector("#introText").innerHTML = "The Color Game";
-        document.querySelector("#study").innerHTML = "study";
-        studyIndex = 0;
-      }
+        studyButton.innerHTML = "study";
+        introText.innerHTML = "The Color Game";
+        studyIndex = 0;  
+    }
 
-      if(studyIndex == hexColor.length){
-        document.querySelector("#study").innerHTML = "play";
-      }
+    newColors();
+    studyIndex++;
 }
+
 
 function colors() {
     let color = randomColor();
@@ -192,6 +203,47 @@ function oppositeColorFunc(color) {
     return oppositeColor;
 }
 
+/*
+function textTyping(element, text, i = 0){
+    if(text === ""){
+        element.textContent = "";
+        return;
+    }
+
+    if (i===0){
+        element.textContent = "";
+    }
+
+    element.textContent += text[i];
+
+    if(i === text.length - 1){
+        return;
+    }
+
+    setTimeout(()=> textTyping(element, text, i+1), 130);
+}
+*/
+function textTyping(element, text, i = 0){
+    if(text === ""){
+        element.textContent = "";
+        return;
+    }
+
+    const words = text.split(" ");
+
+    if (i === 0){
+        element.textContent = "";
+    }
+
+    element.textContent += (i === 0 ? "" : " ") + words[i];
+
+    if(i === words.length - 1){
+        return;
+    }
+
+    setTimeout(() => textTyping(element, text, i+1), 100); 
+}
+
 //chatGPT-4o functions
 function isHighContrast(color1, color2) {
     const luminance1 = getLuminance(color1);
@@ -208,7 +260,7 @@ function getLuminance(hexColor) {
 
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
-//////////////////////.
+//////////////////////
 
 window.addEventListener('click', event => {
     const audio = document.querySelector("audio");

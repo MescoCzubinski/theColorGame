@@ -14,10 +14,9 @@ body{
     margin-right: auto;
 }
 #introText{
-    height: 300px;
-
-    text-align: left;
+    height: 400px;
     font-size: 68px;
+    letter-spacing: 3px;
 }
 #button{
     width: 350px;
@@ -37,6 +36,9 @@ body{
 
     background: transparent;
 }
+#play:hover{
+    box-shadow: 0px 0px 15px 1px;
+}
 #study{
     width: 160px;
     height: 80px;
@@ -49,6 +51,9 @@ body{
     border: solid 4px;
 
     background: transparent;
+}
+#study:hover{
+    box-shadow: 0px 0px 15px 1px;
 }
 #gameContainer{
     display: flex;
