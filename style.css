@@ -148,7 +148,7 @@ input:hover, input:focus{
     width: 460px;
     font-size: 12px;
 }
-#gameContainer.none, #introText.none, #resultContainer.none, #study.none, #play.none{
+#gameContainer.none, #introText.none, #study.none, #play.none{
     display: none;
 }
 input::-webkit-outer-spin-button,

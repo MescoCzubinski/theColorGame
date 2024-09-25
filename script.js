@@ -20,7 +20,9 @@ window.addEventListener('input', event => {
             insertColorElements[i+1].focus();            
         }
     }
-    checking(color);
+    if(color.length === 7){
+        checking(color);
+    }
 });
 function reset(){
     ['#insertColor1', '#insertColor2', '#insertColor3'].forEach(id => {
@@ -28,6 +30,11 @@ function reset(){
     });
     document.querySelector("#insertColor1").focus();
 }
+document.addEventListener('keydown', (event) => {
+    if(event.key === 'Backspace' || event.key === 'Delete'){
+        reset();
+    }
+})
 
 let wasInspected = false;
 document.addEventListener('keydown', (event) => {
@@ -42,13 +49,74 @@ window.addEventListener('resize', () => {
         wasInspected = true;
     }
 });
+
+function failedAttemptText(){
+    const failedAttemptText = [
+        "Oh look, another majestic failure. How original.",
+        "Wow, that was... something. Better luck next time, I guess.",
+        "Yikes. Did you even try? Because it sure doesn’t seem like it.",
+        "You missed the mark by a mile. Impressive in its own way.",
+        "Ah, the sweet sound of defeat. It’s becoming a theme.",
+        "Is this your strategy? Because it’s not a good one.",
+        "Surprise! You failed again. Who could have seen that coming?",
+        "You know, I was expecting a bit more... effort.",
+        "Congratulations! You’ve just set a new record for failure.",
+        "Let’s try that again, shall we? Or maybe just give up?",
+        "Really? Was that the best you could do?",
+        "I see you’re committed to failing spectacularly.",
+        "Did you practice this? Because it doesn’t show.",
+        "At this point, I’m just impressed by your consistency.",
+        "Maybe a break would help? Just a thought."
+    ];
+    let failedAttempt = failedAttemptText[Math.round(Math.random() * (failedAttemptText.length-1))];
+    return failedAttempt;
+}
+function cheatedAttemptText(){
+    const cheatedAttemptText = [
+        "Really? Cheating? That’s your big plan?",
+        "I can’t believe you thought you could get away with that. Pathetic.",
+        "Cheating? How original. You must be so proud.",
+        "Congratulations! You’ve officially proven you can’t win fairly.",
+        "Do you think this makes you a better player? Because it doesn’t."
+    ];
+    let cheatedAttempt = cheatedAttemptText[Math.round(Math.random() * (cheatedAttemptText.length-1))];
+    return cheatedAttempt; 
+}
 function checking(color){
     console.log(backgroundColor);
+    console.log(color);
 
-    if(color == backgroundColor){
+    if(color === backgroundColor){
+        showResult();
 
-        newColors();
-        showResult(wasInspected);
+        if(wasInspected){
+            introText.innerHTML = cheatedAttemptText();
+            setTimeout(function(){
+                playButton.classList.remove("none");
+                playButton.innerHTML = "Rety";
+
+                playButton.addEventListener('click', event => {
+                audio.pause();
+                const thePunishment = document.querySelector("#thePunishment");
+                thePunishment.play();
+                thePunishment.loop = true;
+                });
+            }, 2000);
+        }
+    } else {
+        showResult();
+        introText.innerHTML = failedAttemptText(); 
+
+        setTimeout(function(){
+            document.querySelector('body').style.backgroundColor = color;
+            introText.style.color = "#" + oppositeColorFunc(color);
+            introText.innerHTML = "That is how your guess looked like:";
+
+            setTimeout(function(){
+                document.querySelector('body').style.backgroundColor = document.querySelector('#hash').style.color;
+                showGame();
+            }, 2500);
+        }, 3000);
     }
 }
 
@@ -227,7 +295,7 @@ function textTyping(element, text, i = 0){
         return;
     }
 
-    setTimeout(() => textTyping(element, text, i+1), 400); 
+    setTimeout(() => textTyping(element, text, i+1), 4); // TYMCZASOWO !!!!!!!!!!!!!!!!!!!
 }
 
 window.addEventListener('click', event => {
