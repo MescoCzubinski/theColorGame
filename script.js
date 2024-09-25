@@ -1,3 +1,6 @@
+const audio = document.querySelector("#audio");
+const thePunishment = document.querySelector("#thePunishment");
+
 let backgroundColor;
 window.addEventListener('load', function(){
     showStart();
@@ -83,27 +86,42 @@ function cheatedAttemptText(){
     return cheatedAttempt; 
 }
 function checking(color){
-    console.log(backgroundColor);
-    console.log(color);
+    //turn on dev mode
+    if(color === "#303030"){
+        console.log(backgroundColor);
+    }
 
+    //main mechanic
     if(color === backgroundColor){
         showResult();
 
         if(wasInspected){
+            //if player is correct, but cheating
             introText.innerHTML = cheatedAttemptText();
+
             setTimeout(function(){
+                audio.loop = false;
+                audio.pause();
+
                 playButton.classList.remove("none");
                 playButton.innerHTML = "Rety";
 
                 playButton.addEventListener('click', event => {
-                audio.pause();
-                const thePunishment = document.querySelector("#thePunishment");
                 thePunishment.play();
                 thePunishment.loop = true;
                 });
             }, 2000);
+        } else {
+            //if player is correct, but isn't cheating
+            newColors();
+            introText.innerHTML = "It was imposible to guess it without cheating. Congrats. Wanna play once again?";
+
+            setTimeout(function(){
+                showGame();
+            }, 3000);
         }
     } else {
+        //if player is wrong
         showResult();
         introText.innerHTML = failedAttemptText(); 
 
@@ -295,11 +313,12 @@ function textTyping(element, text, i = 0){
         return;
     }
 
-    setTimeout(() => textTyping(element, text, i+1), 4); // TYMCZASOWO !!!!!!!!!!!!!!!!!!!
+    setTimeout(() => textTyping(element, text, i+1), 400);  // TYMCZASOWO !!!!!!!!!!!!!!!!!!!
 }
 
 window.addEventListener('click', event => {
-    const audio = document.querySelector("audio");
-    audio.play();
-    audio.loop = true;
+    if(!wasInspected){
+        audio.play();
+        audio.loop = true;
+    }
 });
