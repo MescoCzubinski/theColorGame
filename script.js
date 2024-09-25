@@ -1,17 +1,10 @@
-const audio = document.querySelector("#audio");
-const thePunishment = document.querySelector("#thePunishment");
-
 let backgroundColor;
 window.addEventListener('load', function(){
     showStart();
 });
 
 window.addEventListener('input', event => {
-    const insertColorElements = [
-        document.querySelector("#insertColor1"),
-        document.querySelector("#insertColor2"),
-        document.querySelector("#insertColor3")
-    ];
+
 
     var color = "#";
     for(i = 0; i < 3; i++){
@@ -28,9 +21,9 @@ window.addEventListener('input', event => {
     }
 });
 function reset(){
-    ['#insertColor1', '#insertColor2', '#insertColor3'].forEach(id => {
-        document.querySelector(id).value = "";
-    });
+    for(i = 0; i < 3; i++){
+        insertColorElements[i].value = "";
+    }
     document.querySelector("#insertColor1").focus();
 }
 document.addEventListener('keydown', (event) => {
@@ -126,12 +119,12 @@ function checking(color){
         introText.innerHTML = failedAttemptText(); 
 
         setTimeout(function(){
-            document.querySelector('body').style.backgroundColor = color;
+            body.style.backgroundColor = color;
             introText.style.color = "#" + oppositeColorFunc(color);
             introText.innerHTML = "That is how your guess looked like:";
 
             setTimeout(function(){
-                document.querySelector('body').style.backgroundColor = document.querySelector('#hash').style.color;
+                body.style.backgroundColor = hash.style.color;
                 showGame();
             }, 2500);
         }, 3000);
@@ -197,7 +190,7 @@ document.querySelector('#study').addEventListener('click', function(){
     ];
     
     if (studyIndex < studyDialog.length) {
-        textTyping(document.querySelector('#introText'), studyDialog[studyIndex]);
+        textTyping(introText, studyDialog[studyIndex]);
         newColors();
         studyIndex++;
     }
@@ -263,10 +256,10 @@ function getLuminance(hexColor) {
 function newColors(){
     let [color, opositeColor] = colors();
 
-    document.body.style.backgroundColor = color;
-    document.querySelector("#hash").style.color = color;
+    body.style.backgroundColor = color;
+    hash.style.color = color;
 
-    document.querySelector("#introText").style.color = opositeColor;
+    introText.style.color = opositeColor;
     document.querySelector("#leftText").style.color = opositeColor;
     document.querySelector("#upperText").style.color = opositeColor;
     document.querySelector("#bottomText").style.color = opositeColor;
@@ -274,23 +267,23 @@ function newColors(){
     document.querySelector("#testColor").style.backgroundColor = opositeColor;
     document.querySelector("#testColor").style.borderColor = opositeColor;
 
-    document.querySelector("#play").style.borderColor = opositeColor;
-    document.querySelector("#play").style.color = opositeColor;
-    document.querySelector("#play").style.shadowColor = opositeColor;
+    playButton.style.borderColor = opositeColor;
+    playButton.style.color = opositeColor;
+    playButton.style.shadowColor = opositeColor;
 
-    document.querySelector("#study").style.borderColor = opositeColor;
-    document.querySelector("#study").style.color = opositeColor;
-    document.querySelector("#study").style.shadowColor = opositeColor;
+    studyButton.style.borderColor = opositeColor;
+    studyButton.style.color = opositeColor;
+    studyButton.style.shadowColor = opositeColor;
 
-    for(i=1; i<4; i++){
-        document.querySelector("#insertColor"+i).style.backgroundColor = color;
-        document.querySelector("#insertColor"+i).style.borderColor = opositeColor;
-        document.querySelector("#insertColor"+i).style.color = opositeColor;
+    for(i=0; i<3; i++){
+        insertColorElements[i].style.backgroundColor = color;
+        insertColorElements[i].style.borderColor = opositeColor;
+        insertColorElements[i].style.color = opositeColor;
     }
 
     if(playClickable == true){
-        document.querySelector("#play").style.color = color;
-        document.querySelector("#play").style.backgroundColor = opositeColor;
+        playButton.style.color = color;
+        playButton.style.backgroundColor = opositeColor;
     }
 
     backgroundColor = color;

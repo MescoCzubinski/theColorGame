@@ -1,9 +1,22 @@
+const body = document.querySelector('body');
+
 const introText = document.querySelector('#introText');
 const introContainer = document.querySelector('#introContainer');
 const gameContainer = document.querySelector('#gameContainer');
 
 const playButton = document.querySelector('#play');
 const studyButton = document.querySelector('#study');
+
+const audio = document.querySelector("#audio");
+const thePunishment = document.querySelector("#thePunishment");
+
+const hash = document.querySelector('#hash');
+
+const insertColorElements = [
+    document.querySelector("#insertColor1"),
+    document.querySelector("#insertColor2"),
+    document.querySelector("#insertColor3")
+];
 
 function showStart(){
     //display
@@ -15,6 +28,7 @@ function showStart(){
 
     playButton.innerHTML = "play";
     studyButton.innerHTML = "study";
+
     //mechanics
     newColors();
 
@@ -34,6 +48,7 @@ function showIntro(){
     studyButton.classList.add("none");
     
     playButton.innerHTML = "next";
+
     //style
     introText.style.textAlign = 'left';
     playButton.style.borderBottomRightRadius = '30px';
@@ -63,6 +78,7 @@ function showGame(){
     studyButton.classList.add("none");
 
     playButton.innerHTML = "reset";
+    
     //mechanics
         reset();
 
