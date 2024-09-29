@@ -156,3 +156,127 @@ input::-webkit-inner-spin-button {
 -webkit-appearance: none;
 margin: 0;
 }
+@media screen and (max-width: 426px) {
+    #introContainer{
+        margin-top: 10px;
+    
+        width: 400px;
+    }
+    #introText{
+        font-size: 40px;
+        letter-spacing: 3px;
+    }
+    #button{
+        width: 400px;
+    }
+    #play{
+        width: 160px;
+        height: 80px;
+
+        border-radius: 5px;
+
+        font-size: 40px;
+        border: solid 4px;
+
+        background: transparent;
+    }
+    #play:hover{
+        box-shadow: 0px 0px 15px 1px;
+    }
+    #study{
+        width: 160px;
+        height: 80px;
+        margin-left: 10px;
+
+        border-radius: 5px;
+        border-bottom-right-radius: 30px;
+
+        font-size: 40px;
+        border: solid 4px;
+
+        background: transparent;
+    }
+    #study:hover{
+        box-shadow: 0px 0px 15px 1px;
+    }
+    #gameContainer{
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+
+        margin-top: 200px;
+
+        width: 425px;
+        height: 300px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #leftText{
+        transform: rotate(-90deg);
+
+        width: 300px;
+        height: 75px;
+
+        font-size: 105px;
+
+        top: 100px;
+        left: -160px;
+    }
+    #other {
+        margin-left: 70px;
+    }
+    #upperText{
+        width: 460px;
+        height: 60px;
+
+        margin: 0 auto;
+
+        text-align: left;
+        font-size: 46px;
+
+        padding-left: 16px;
+    }
+    p{
+        margin: 0;
+    }
+    #testColor{
+        display: flex;
+        flex-wrap: wrap;
+
+        width: 460px;
+        height: 200px;
+
+        border: solid 4px;
+        border-radius: 10px;
+        border-bottom-right-radius: 60px;
+
+        background-color: #303030;
+    }
+    #hash{
+        width: 45px;
+        
+        margin-top: 53px;
+        margin-left: 50px;
+        font-size: 84px;
+    }
+    input{
+        width: 100px;
+        height: 80px;
+
+        margin-left: 5px;
+        margin-top: 60px;
+        padding: 0;
+        text-align: center;
+        font-size: 54px;
+
+        border: solid 4px;
+    }
+    input:hover, input:focus{
+        border: solid 2px;
+    }
+    #bottomText{
+        width: 460px;
+        font-size: 12px;
+    }
+}
