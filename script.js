@@ -4,8 +4,6 @@ window.addEventListener('load', function(){
 });
 
 window.addEventListener('input', event => {
-
-
     var color = "#";
     for(i = 0; i < 3; i++){
         let input = insertColorElements[i].value.replace(/[^0-9a-f]/gi, "");
@@ -144,7 +142,7 @@ document.querySelector('#play').addEventListener('click', function(){
         "More colors?",
         "So... wanna play?",
         "But why doesn't this button work?",
-        "Isn't you too weak to click it?",
+        "Aren't you too weak to click it?",
         "Ok... ok... I'll stop now.",
         "\"May the colors be with you...\"",
         "",

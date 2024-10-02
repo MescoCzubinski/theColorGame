@@ -34,6 +34,7 @@ function showStart(){
 
     //style
     introContainer.style.textAlign = 'center';
+    introText.style.fontSize = '100px'
 
     playButton.style.borderBottomRightRadius = '5px';
     studyButton.style.borderBottomRightRadius = '30px';
@@ -50,6 +51,7 @@ function showIntro(){
     playButton.innerHTML = "next";
 
     //style
+    introText.style.fontSize = '50px'
     introText.style.textAlign = 'left';
     playButton.style.borderBottomRightRadius = '30px';
 }
@@ -65,6 +67,7 @@ function showStudy(){
     studyButton.innerHTML = "next";
 
     //style
+    introText.style.fontSize = '50px'
     introText.style.textAlign = 'left';
     studyButton.style.borderBottomRightRadius = '30px';
 }
@@ -80,7 +83,7 @@ function showGame(){
     playButton.innerHTML = "reset";
     
     //mechanics
-        reset();
+    reset();
 
     //style
     playButton.style.borderBottomRightRadius = '30px';
@@ -93,4 +96,7 @@ function showResult(){
 
     playButton.classList.add("none");
     studyButton.classList.add("none");
+
+    //style
+    introText.style.fontSize = '50px'
 }
