@@ -100,6 +100,7 @@ function checking(color){
                 playButton.addEventListener('click', event => {
                 thePunishment.play();
                 thePunishment.loop = true;
+                newColors();
                 });
             }, 2000);
         } else {
